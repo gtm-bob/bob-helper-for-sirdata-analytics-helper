@@ -33,7 +33,10 @@ ___INFO___
     "displayName": ""
   },
   "description": "Use this template to replay events once Sirdata Analytics Helper\u0027s cookieless UUID is ready.",
-  "categories": ["ANALYTICS", "TAG_GESTION"],
+  "categories": [
+    "ANALYTICS",
+    "TAG_GESTION"
+  ],
   "containerContexts": [
     "WEB"
   ]
@@ -128,7 +131,6 @@ ___TEMPLATE_PARAMETERS___
 ___SANDBOXED_JS_FOR_WEB_TEMPLATE___
 
 const log = require('logToConsole');
-log('Bob\'s Helper for Sirdata Analytics Helper : ', data);
 data.ten = 'sdh_UUID_ready';
 data.b_k = 'analytics_helper_cookieless_ready';
 
@@ -162,6 +164,8 @@ if (in_array(data.gtmTagId, r) || !data.gtmEventId || !data.en) {
   data.gtmOnSuccess();
   return;
 }
+
+data.eventId = "e" + data.gtmEventId.toString();
 
 const updateConsentState = require('updateConsentState');
 const setInWindow = require('setInWindow');
@@ -202,7 +206,9 @@ const allIdsReady = function(needed, ready) {
   return missing.length ? false : true;
 };
 
-if (data.en && data.en == data.ten) {
+log('Bob\'s Helper for Sirdata Analytics Helper final data : ', data);
+
+if (data.en == data.ten) {
   var s1 = isArrayEmptyOrUndefined(r) ? [] : r;
   s1.push(data.gtmTagId);
   setInWindow('gtm_Bob.er.r', s1, true);
@@ -269,13 +275,13 @@ if (e && e[e.length-1] && (e[e.length-1][k] || (typeof(e[e.length-1][0]) == 'str
       d(push);
     };
   }
-  if (rq[data.en] && rq[data.en].t) {  
-    if (!in_array(data.gtmTagId, rq[data.en].t)) {
-      rq[data.en].t.push(data.gtmTagId);
+  if (rq[data.eventId] && rq[data.eventId].t) {  
+    if (!in_array(data.gtmTagId, rq[data.eventId].t)) {
+      rq[data.eventId].t.push(data.gtmTagId);
     }
   }
   else {
-    rq[data.en] = {e: data.en, t: [data.gtmTagId], cb: cbf};
+    rq[data.eventId] = {e: data.en, t: [data.gtmTagId], cb: cbf};
   }
   setInWindow('gtm_Bob.er.q', rq, true);
   data.gtmOnSuccess();
