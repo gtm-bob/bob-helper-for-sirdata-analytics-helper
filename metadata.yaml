@@ -15,5 +15,5 @@
 homepage: "https://www.gtm-bob.com"
 documentation: "https://www.gtm-bob.com/bob-helper-for-sirdata-analytics-helper/"
 versions:
-  - sha: 33c71d5d6a26a21505e360204eae28356f1fd60d
-    changeNotes: Initial Version
+  - sha: b79e783a411f0d299d41c89b8f9585a0f6d88766
+    changeNotes: first review
